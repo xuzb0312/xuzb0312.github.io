@@ -6,7 +6,7 @@
   <link href="http://xuzb0312.github.io/atom.xml" rel="self"/>
   
   <link href="http://xuzb0312.github.io/"/>
-  <updated>2022-03-03T10:24:03.279Z</updated>
+  <updated>2022-03-03T11:01:19.382Z</updated>
   <id>http://xuzb0312.github.io/</id>
   
   <author>
@@ -15,23 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>test</title>
-    <link href="http://xuzb0312.github.io/2022/03/03/test/"/>
-    <id>http://xuzb0312.github.io/2022/03/03/test/</id>
-    <published>2022-03-03T10:21:42.838Z</published>
-    <updated>2022-03-03T10:24:03.279Z</updated>
-    
-    <content type="html"><![CDATA[<p> Validating config<br>INFO  Start processing<br>INFO  Hexo is running at <a href="http://localhost:4000/">http://localhost:4000/</a> . Press Ctrl+C to stop.<br>(node:38264) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(Use <code>node --trace-warnings ...</code> to show where the warning was created)</p><span id="more"></span><p>(node:38264) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:38264) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>(node:38264) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(node:38264) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:38264) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>INFO  Have a nice day</p><p>xuzb@LAPTOP-7VMGCRAO MINGW64 &#x2F;d&#x2F;Blog&#x2F;local<br>$ hexo s<br>INFO  Validating config<br>INFO  Start processing<br>INFO  Hexo is running at <a href="http://localhost:4000/">http://localhost:4000/</a> . Press Ctrl+C to stop.<br>INFO  See you again</p><p>xuzb@LAPTOP-7VMGCRAO MINGW64 &#x2F;d&#x2F;Blog&#x2F;local<br>$ hexo s<br>INFO  Validating config<br>INFO  Start processing<br>INFO  Hexo is running at <a href="http://localhost:4000/">http://localhost:4000/</a> . Press Ctrl+C to stop.<br>(node:41048) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(Use <code>node --trace-warnings ...</code> to show where the warning was created)<br>(node:41048) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:41048) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>(node:41048) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(node:41048) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:41048) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>INFO  Bye!</p><p>xuzb@LAPTOP-7VMGCRAO MINGW64 &#x2F;d&#x2F;Blog&#x2F;local<br>$ hexo s<br>INFO  Validating config<br>INFO  Start processing<br>INFO  Hexo is running at <a href="http://localhost:4000/">http://localhost:4000/</a> . Press Ctrl+C to stop.<br>(node:39368) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(Use <code>node --trace-warnings ...</code> to show where the warning was created)<br>(node:39368) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>(node:39368) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency<br>(node:39368) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(node:39368) Warning: Accessing non-existent property ‘column’ of module exports inside circular dependency<br>INFO  Bye!8) Warning: Accessing non-existent property ‘filename’ of module exports inside circular dependency</p><p>xuzb@LAPTOP-7VMGCRAO MINGW64 &#x2F;d&#x2F;Blog&#x2F;local<br>$ hexo s<br>INFO  Validating config<br>INFO  Start processing<br>WARN  Trying to “create” _posts&#x2F;test.md, but the file already exists!<br>INFO  Hexo is running at <a href="http://localhost:4000/">http://localhost:4000/</a> . Press Ctrl+C to stop.<br>(node:33272) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency<br>(Use <code>node --trace-warnings ...</code> to show where the warning was created)<br>(node:33272) Warning: Accessing non-existent property ‘column’ of module exports inside circular depend</p>]]></content>
-    
-    
-    <summary type="html">&lt;p&gt; Validating config&lt;br&gt;INFO  Start processing&lt;br&gt;INFO  Hexo is running at &lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; . Press Ctrl+C to stop.&lt;br&gt;(node:38264) Warning: Accessing non-existent property ‘lineno’ of module exports inside circular dependency&lt;br&gt;(Use &lt;code&gt;node --trace-warnings ...&lt;/code&gt; to show where the warning was created)&lt;/p&gt;</summary>
-    
-    
-    
-    
-  </entry>
   
   <entry>
     <title>SpringBoot（峰迷商城）</title>
