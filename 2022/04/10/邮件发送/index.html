@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xuzb0312.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="邮件发送是对JavaWeb的扩展，了解即可，用的时候知道去什么地方去找；">
+<meta property="og:type" content="article">
+<meta property="og:title" content="邮件发送">
+<meta property="og:url" content="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/index.html">
+<meta property="og:site_name" content="小小小黄的博客">
+<meta property="og:description" content="邮件发送是对JavaWeb的扩展，了解即可，用的时候知道去什么地方去找；">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/1.png">
+<meta property="og:image" content="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/2.png">
+<meta property="article:published_time" content="2022-04-10T12:54:57.000Z">
+<meta property="article:modified_time" content="2022-04-10T12:43:30.849Z">
+<meta property="article:author" content="徐振斌">
+<meta property="article:tag" content="JAVA">
+<meta property="article:tag" content="JavaWeb">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/1.png">
+
+<link rel="canonical" href="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>邮件发送 | 小小小黄的博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="小小小黄的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">小小小黄的博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学习记录本</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">11</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">5</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">16</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/xuzb0312" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/author.jpg">
+      <meta itemprop="name" content="徐振斌">
+      <meta itemprop="description" content="见证自己成长的成长簿！">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小小小黄的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          邮件发送
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-10 20:54:57 / 修改时间：20:43:30" itemprop="dateCreated datePublished" datetime="2022-04-10T20:54:57+08:00">2022-04-10</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaWeb/" itemprop="url" rel="index"><span itemprop="name">JavaWeb</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">邮件发送是对JavaWeb的扩展，了解即可，用的时候知道去什么地方去找；</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <span id="more"></span>
+
+<h3 id="一、邮件服务器与传输协议"><a href="#一、邮件服务器与传输协议" class="headerlink" title="一、邮件服务器与传输协议"></a>一、邮件服务器与传输协议</h3><ul>
+<li><p>要在网络上实现邮件功能，必须要有专门的<strong>邮件服务器</strong>。这些邮件服务器类似于现实生活中的邮局，它主要负责接收用户投递过来的邮件，并把邮件投递到邮件接收者的电子邮箱中。</p>
+</li>
+<li><p>SMTP服务器地址：一般是 smtp.xxx.com，比如163邮箱是smtp.163.com，qq邮箱是smtp.qq.com。</p>
+</li>
+<li><p>SMTP协议</p>
+<p>通常把处理用户smtp请求(邮件发送请求)的服务器称之为SMTP服务器(邮件发送服务器)。</p>
+</li>
+<li><p>POP3协议</p>
+<p>通常把处理用户pop3请求(邮件接收请求)的服务器称之为POP3服务器(邮件接收服务器)。</p>
+</li>
+</ul>
+<h3 id="二、Java发送邮件"><a href="#二、Java发送邮件" class="headerlink" title="二、Java发送邮件"></a>二、Java发送邮件</h3><p><img src="/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/1.png" alt="1"><br>使用到的jar包：</p>
+<ul>
+<li>mail.jar</li>
+<li>activation.jar</li>
+</ul>
+<p>QQ邮箱需获取相应的权限：</p>
+<p>QQ邮箱–&gt;邮箱设置–&gt;账户–&gt;POP3&#x2F;IMAP&#x2F;SMTP&#x2F;Exchange&#x2F;CardDAV&#x2F;CalDAV服务 开启POP3&#x2F;SMTP服务，然后获取16位授权码（注意不要将授权码泄露，一个账户可以拥有多个授权码）<br><img src="/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/2.png" alt="2"><br><strong>Java实现纯文本邮件发送</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.westos.email;</span><br><span class="line"><span class="keyword">import</span> com.sun.mail.util.MailSSLSocketFactory;</span><br><span class="line"><span class="keyword">import</span> javax.mail.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.InternetAddress;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.MimeMessage;</span><br><span class="line"><span class="keyword">import</span> java.security.GeneralSecurityException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SendEamil</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> MessagingException, GeneralSecurityException &#123;</span><br><span class="line">        <span class="comment">//创建一个配置文件并保存</span></span><br><span class="line">        <span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        properties.setProperty(<span class="string">&quot;mail.host&quot;</span>,<span class="string">&quot;smtp.qq.com&quot;</span>);</span><br><span class="line">        properties.setProperty(<span class="string">&quot;mail.transport.protocol&quot;</span>,<span class="string">&quot;smtp&quot;</span>);</span><br><span class="line">        properties.setProperty(<span class="string">&quot;mail.smtp.auth&quot;</span>,<span class="string">&quot;true&quot;</span>);</span><br><span class="line">        <span class="comment">//QQ存在一个特性设置SSL加密</span></span><br><span class="line">        <span class="type">MailSSLSocketFactory</span> <span class="variable">sf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MailSSLSocketFactory</span>();</span><br><span class="line">        sf.setTrustAllHosts(<span class="literal">true</span>);</span><br><span class="line">        properties.put(<span class="string">&quot;mail.smtp.ssl.enable&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">        properties.put(<span class="string">&quot;mail.smtp.ssl.socketFactory&quot;</span>, sf);</span><br><span class="line">        <span class="comment">//创建一个session对象</span></span><br><span class="line">        <span class="type">Session</span> <span class="variable">session</span> <span class="operator">=</span> Session.getDefaultInstance(properties, <span class="keyword">new</span> <span class="title class_">Authenticator</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PasswordAuthentication</span>(<span class="string">&quot;619046217@qq.com&quot;</span>,<span class="string">&quot;16位授权码&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//开启debug模式</span></span><br><span class="line">        session.setDebug(<span class="literal">true</span>);</span><br><span class="line">        <span class="comment">//获取连接对象</span></span><br><span class="line">        <span class="type">Transport</span> <span class="variable">transport</span> <span class="operator">=</span> session.getTransport();</span><br><span class="line">        <span class="comment">//连接服务器</span></span><br><span class="line">        transport.connect(<span class="string">&quot;smtp.qq.com&quot;</span>,<span class="string">&quot;619046217@qq.com&quot;</span>,<span class="string">&quot;16位授权码&quot;</span>);</span><br><span class="line">        <span class="comment">//创建邮件对象</span></span><br><span class="line">        <span class="type">MimeMessage</span> <span class="variable">mimeMessage</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeMessage</span>(session);</span><br><span class="line">        <span class="comment">//邮件发送人</span></span><br><span class="line">        mimeMessage.setFrom(<span class="keyword">new</span> <span class="title class_">InternetAddress</span>(<span class="string">&quot;619046217@qq.com&quot;</span>));</span><br><span class="line">        <span class="comment">//邮件接收人</span></span><br><span class="line">        mimeMessage.setRecipient(Message.RecipientType.TO,<span class="keyword">new</span> <span class="title class_">InternetAddress</span>(<span class="string">&quot;875203654@qq.com&quot;</span>));</span><br><span class="line">        <span class="comment">//邮件标题</span></span><br><span class="line">        mimeMessage.setSubject(<span class="string">&quot;Hello Mail&quot;</span>);</span><br><span class="line">        <span class="comment">//邮件内容</span></span><br><span class="line">        mimeMessage.setContent(<span class="string">&quot;我的想法是把代码放进一个循环里&quot;</span>,<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line">        <span class="comment">//发送邮件</span></span><br><span class="line">        transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());</span><br><span class="line">        <span class="comment">//关闭连接</span></span><br><span class="line">        transport.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Java实现文本图片附件复杂的邮件发送</strong><br>MIME（多用途互联网邮件扩展类型）</p>
+<p>MimeBodyPart类</p>
+<p>javax.mail.internet.MimeBodyPart类 表示的是一个MIME消息，它和MimeMessage类一样都是从Part接口继承过来。</p>
+<p>MimeMultipart类</p>
+<p>javax.mail.internet.MimeMultipart是抽象类 Multipart的实现子类,它用来组合多个MIME消息。一个MimeMultipart对象可以包含多个代表MIME消息的MimeBodyPart对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.westos.email;</span><br><span class="line"><span class="keyword">import</span> com.sun.mail.util.MailSSLSocketFactory;</span><br><span class="line"><span class="keyword">import</span> javax.activation.DataHandler;</span><br><span class="line"><span class="keyword">import</span> javax.activation.FileDataSource;</span><br><span class="line"><span class="keyword">import</span> javax.mail.*;</span><br><span class="line"><span class="keyword">import</span> javax.mail.internet.*;</span><br><span class="line"><span class="keyword">import</span> java.security.GeneralSecurityException;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SendComplexEmail</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> GeneralSecurityException, MessagingException &#123;</span><br><span class="line">        <span class="type">Properties</span> <span class="variable">prop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">        prop.setProperty(<span class="string">&quot;mail.host&quot;</span>, <span class="string">&quot;smtp.qq.com&quot;</span>);  设置QQ邮件服务器</span><br><span class="line">        prop.setProperty(<span class="string">&quot;mail.transport.protocol&quot;</span>, <span class="string">&quot;smtp&quot;</span>); <span class="comment">// 邮件发送协议</span></span><br><span class="line">        prop.setProperty(<span class="string">&quot;mail.smtp.auth&quot;</span>, <span class="string">&quot;true&quot;</span>); <span class="comment">// 需要验证用户名密码</span></span><br><span class="line">        <span class="comment">// QQ邮箱设置SSL加密</span></span><br><span class="line">        <span class="type">MailSSLSocketFactory</span> <span class="variable">sf</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MailSSLSocketFactory</span>();</span><br><span class="line">        sf.setTrustAllHosts(<span class="literal">true</span>);</span><br><span class="line">        prop.put(<span class="string">&quot;mail.smtp.ssl.enable&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">        prop.put(<span class="string">&quot;mail.smtp.ssl.socketFactory&quot;</span>, sf);</span><br><span class="line">        <span class="comment">//1、创建定义整个应用程序所需的环境信息的 Session 对象</span></span><br><span class="line">        <span class="type">Session</span> <span class="variable">session</span> <span class="operator">=</span> Session.getDefaultInstance(prop, <span class="keyword">new</span> <span class="title class_">Authenticator</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">                <span class="comment">//传入发件人的姓名和授权码</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PasswordAuthentication</span>(<span class="string">&quot;619046217@qq.com&quot;</span>,<span class="string">&quot;16位授权码&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//2、通过session获取transport对象</span></span><br><span class="line">        <span class="type">Transport</span> <span class="variable">transport</span> <span class="operator">=</span> session.getTransport();</span><br><span class="line">        <span class="comment">//3、通过transport对象邮箱用户名和授权码连接邮箱服务器</span></span><br><span class="line">        transport.connect(<span class="string">&quot;smtp.qq.com&quot;</span>,<span class="string">&quot;619046217@qq.com&quot;</span>,<span class="string">&quot;16位授权码&quot;</span>);</span><br><span class="line">        <span class="comment">//4、创建邮件,传入session对象</span></span><br><span class="line">        <span class="type">MimeMessage</span> <span class="variable">mimeMessage</span> <span class="operator">=</span> complexEmail(session);</span><br><span class="line">        <span class="comment">//5、发送邮件</span></span><br><span class="line">        transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());</span><br><span class="line">        <span class="comment">//6、关闭连接</span></span><br><span class="line">        transport.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> MimeMessage <span class="title function_">complexEmail</span><span class="params">(Session session)</span> <span class="keyword">throws</span> MessagingException &#123;</span><br><span class="line">        <span class="comment">//消息的固定信息</span></span><br><span class="line">        <span class="type">MimeMessage</span> <span class="variable">mimeMessage</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeMessage</span>(session);</span><br><span class="line">        <span class="comment">//发件人</span></span><br><span class="line">        mimeMessage.setFrom(<span class="keyword">new</span> <span class="title class_">InternetAddress</span>(<span class="string">&quot;619046217@qq.com&quot;</span>));</span><br><span class="line">        <span class="comment">//收件人</span></span><br><span class="line">        mimeMessage.setRecipient(Message.RecipientType.TO,<span class="keyword">new</span> <span class="title class_">InternetAddress</span>(<span class="string">&quot;619046217@qq.com&quot;</span>));</span><br><span class="line">        <span class="comment">//邮件标题</span></span><br><span class="line">        mimeMessage.setSubject(<span class="string">&quot;带图片和附件的邮件&quot;</span>);</span><br><span class="line">        <span class="comment">//邮件内容</span></span><br><span class="line">        <span class="comment">//准备图片数据</span></span><br><span class="line">        <span class="type">MimeBodyPart</span> <span class="variable">image</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeBodyPart</span>();</span><br><span class="line">        <span class="type">DataHandler</span> <span class="variable">handler</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataHandler</span>(<span class="keyword">new</span> <span class="title class_">FileDataSource</span>(<span class="string">&quot;E:\\IdeaProjects\\WebEmail\\resources\\测试图片.png&quot;</span>));</span><br><span class="line">        image.setDataHandler(handler);</span><br><span class="line">        image.setContentID(<span class="string">&quot;test.png&quot;</span>); <span class="comment">//设置图片id</span></span><br><span class="line">        <span class="comment">//准备文本</span></span><br><span class="line">        <span class="type">MimeBodyPart</span> <span class="variable">text</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeBodyPart</span>();</span><br><span class="line">        text.setContent(<span class="string">&quot;这是一段文本&lt;img src=&#x27;cid:test.png&#x27;&gt;&quot;</span>,<span class="string">&quot;text/html;charset=utf-8&quot;</span>);</span><br><span class="line">        <span class="comment">//附件</span></span><br><span class="line">        <span class="type">MimeBodyPart</span> <span class="variable">appendix</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeBodyPart</span>();</span><br><span class="line">        appendix.setDataHandler(<span class="keyword">new</span> <span class="title class_">DataHandler</span>(<span class="keyword">new</span> <span class="title class_">FileDataSource</span>(<span class="string">&quot;E:\\IdeaProjects\\WebEmail\\resources\\测试文件.txt&quot;</span>)));</span><br><span class="line">        appendix.setFileName(<span class="string">&quot;test.txt&quot;</span>);</span><br><span class="line">        <span class="comment">//拼装邮件正文</span></span><br><span class="line">        <span class="type">MimeMultipart</span> <span class="variable">mimeMultipart</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeMultipart</span>();</span><br><span class="line">        mimeMultipart.addBodyPart(image);</span><br><span class="line">        mimeMultipart.addBodyPart(text);</span><br><span class="line">        mimeMultipart.setSubType(<span class="string">&quot;related&quot;</span>);<span class="comment">//文本和图片内嵌成功</span></span><br><span class="line">        <span class="comment">//将拼装好的正文内容设置为主体</span></span><br><span class="line">        <span class="type">MimeBodyPart</span> <span class="variable">contentText</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeBodyPart</span>();</span><br><span class="line">        contentText.setContent(mimeMultipart);</span><br><span class="line">        <span class="comment">//拼接附件</span></span><br><span class="line">        <span class="type">MimeMultipart</span> <span class="variable">allFile</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeMultipart</span>();</span><br><span class="line">        allFile.addBodyPart(appendix);<span class="comment">//附件</span></span><br><span class="line">        allFile.addBodyPart(contentText);<span class="comment">//正文</span></span><br><span class="line">        allFile.setSubType(<span class="string">&quot;mixed&quot;</span>); <span class="comment">//正文和附件都存在邮件中，所有类型设置为mixed</span></span><br><span class="line">        <span class="comment">//放到Message消息中</span></span><br><span class="line">        mimeMessage.setContent(allFile);</span><br><span class="line">        mimeMessage.saveChanges();<span class="comment">//保存修改</span></span><br><span class="line">        <span class="keyword">return</span> mimeMessage;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="三、JavaWeb发送邮件-网站注册成功发送提示邮件"><a href="#三、JavaWeb发送邮件-网站注册成功发送提示邮件" class="headerlink" title="三、JavaWeb发送邮件(网站注册成功发送提示邮件)"></a>三、JavaWeb发送邮件(网站注册成功发送提示邮件)</h3><ol>
+<li><p><strong>User</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.westos.mail;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String mail;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">User</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">User</span><span class="params">(String name, String password, String mail)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">        <span class="built_in">this</span>.password = password;</span><br><span class="line">        <span class="built_in">this</span>.mail = mail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getName</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setName</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPassword</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> password;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPassword</span><span class="params">(String password)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.password = password;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getMail</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMail</span><span class="params">(String mail)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.mail = mail;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;User&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, password=&#x27;&quot;</span> + password + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, mail=&#x27;&quot;</span> + mail + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p>Servlet</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Servlet</span> <span class="keyword">extends</span> <span class="title class_">javax</span>.servlet.http.HttpServlet &#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException &#123;</span><br><span class="line">        doGet(request,response);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> &#123;</span><br><span class="line">        <span class="comment">//处理前端请求</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;username&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;password&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">email</span> <span class="operator">=</span> request.getParameter(<span class="string">&quot;email&quot;</span>);</span><br><span class="line">        <span class="comment">//将信息封装进user对象</span></span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>(username, password, email);</span><br><span class="line">        <span class="type">SendMail</span> <span class="variable">sendMail</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SendMail</span>(user);</span><br><span class="line">        sendMail.start(); <span class="comment">//开启线程</span></span><br><span class="line">        request.setAttribute(<span class="string">&quot;msg&quot;</span>,<span class="string">&quot;发送成功&quot;</span>);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            request.getRequestDispatcher(<span class="string">&quot;msg.jsp&quot;</span>).forward(request,response);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (ServletException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>SengMail</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SendMail</span> <span class="keyword">extends</span> <span class="title class_">Thread</span> &#123;</span><br><span class="line">    <span class="comment">//发件人信息</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">From</span> <span class="operator">=</span> <span class="string">&quot;1730765741@qq.com&quot;</span>;</span><br><span class="line">    <span class="comment">//发件人邮箱</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">recipient</span> <span class="operator">=</span> <span class="string">&quot;1730765741@qq.com&quot;</span>;</span><br><span class="line">    <span class="comment">//邮箱密码</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;16位授权码&quot;</span>;</span><br><span class="line">    <span class="comment">//邮件发送的服务器</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">host</span> <span class="operator">=</span> <span class="string">&quot;smtp.qq.com&quot;</span>;</span><br><span class="line">    <span class="comment">//收件人信息</span></span><br><span class="line">    <span class="keyword">private</span> User user;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SendMail</span><span class="params">(User user)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.user = user;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Properties</span> <span class="variable">properties</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Properties</span>();</span><br><span class="line">            properties.setProperty(<span class="string">&quot;mail.host&quot;</span>,<span class="string">&quot;smtp.qq.com&quot;</span>);</span><br><span class="line">            properties.setProperty(<span class="string">&quot;mail.transport.protocol&quot;</span>,<span class="string">&quot;smtp&quot;</span>);</span><br><span class="line">            properties.setProperty(<span class="string">&quot;mail.smtp.auth&quot;</span>,<span class="string">&quot;true&quot;</span>);</span><br><span class="line">            <span class="comment">//QQ存在一个特性设置SSL加密</span></span><br><span class="line">            <span class="type">MailSSLSocketFactory</span> <span class="variable">sf</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                sf = <span class="keyword">new</span> <span class="title class_">MailSSLSocketFactory</span>();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (GeneralSecurityException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            sf.setTrustAllHosts(<span class="literal">true</span>);</span><br><span class="line">            properties.put(<span class="string">&quot;mail.smtp.ssl.enable&quot;</span>, <span class="string">&quot;true&quot;</span>);</span><br><span class="line">            properties.put(<span class="string">&quot;mail.smtp.ssl.socketFactory&quot;</span>, sf);</span><br><span class="line">            <span class="comment">//创建一个session对象</span></span><br><span class="line">            <span class="type">Session</span> <span class="variable">session</span> <span class="operator">=</span> Session.getDefaultInstance(properties, <span class="keyword">new</span> <span class="title class_">Authenticator</span>() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="keyword">protected</span> PasswordAuthentication <span class="title function_">getPasswordAuthentication</span><span class="params">()</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">PasswordAuthentication</span>(recipient,password);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="comment">//开启debug模式</span></span><br><span class="line">            session.setDebug(<span class="literal">true</span>);</span><br><span class="line">            <span class="comment">//获取连接对象</span></span><br><span class="line">            <span class="type">Transport</span> <span class="variable">transport</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                transport = session.getTransport();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (NoSuchProviderException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//连接服务器</span></span><br><span class="line">            transport.connect(host,From,password);</span><br><span class="line">            <span class="comment">//创建一个邮件发送对象</span></span><br><span class="line">            <span class="type">MimeMessage</span> <span class="variable">mimeMessage</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MimeMessage</span>(session);</span><br><span class="line">            <span class="comment">//邮件发送人</span></span><br><span class="line">            mimeMessage.setFrom(<span class="keyword">new</span> <span class="title class_">InternetAddress</span>(recipient));</span><br><span class="line">            <span class="comment">//邮件接收人</span></span><br><span class="line">            mimeMessage.setRecipient(Message.RecipientType.TO,<span class="keyword">new</span> <span class="title class_">InternetAddress</span>(user.getMail()));</span><br><span class="line">            <span class="comment">//邮件标题</span></span><br><span class="line">            mimeMessage.setSubject(<span class="string">&quot;网站注册成功&quot;</span>);</span><br><span class="line">            <span class="comment">//邮件内容</span></span><br><span class="line">            mimeMessage.setContent(<span class="string">&quot;网站注册成功，密码为&quot;</span>+user.getPassword()+<span class="string">&quot;，请妥善保管密码&quot;</span>,<span class="string">&quot;text/html;charset=UTF-8&quot;</span>);</span><br><span class="line">            <span class="comment">//发送邮件</span></span><br><span class="line">            transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());</span><br><span class="line">            transport.close();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>register.jsp</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;注册页面&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;form action=<span class="string">&quot;$&#123;pageContext.request.contextPath&#125;/a.do&quot;</span> method=<span class="string">&quot;post&quot;</span>&gt;</span><br><span class="line">    &lt;p&gt;用户名：&lt;input type=<span class="string">&quot;text&quot;</span> name=<span class="string">&quot;username&quot;</span> required&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;密码：&lt;input type=<span class="string">&quot;password&quot;</span> name=<span class="string">&quot;password&quot;</span> required&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;邮箱：&lt;input type=<span class="string">&quot;email&quot;</span> name=<span class="string">&quot;email&quot;</span> required&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;&lt;input type=<span class="string">&quot;submit&quot;</span> value=<span class="string">&quot;提交&quot;</span>&gt;&lt;/p&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+<li><p><strong>msg.jsp</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;%@ page contentType=<span class="string">&quot;text/html;charset=UTF-8&quot;</span> language=<span class="string">&quot;java&quot;</span> %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">$&#123;msg&#125;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>web.xml</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="line">&lt;web-app xmlns=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span></span><br><span class="line">         xmlns:xsi=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="line">         xsi:schemaLocation=<span class="string">&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd&quot;</span></span><br><span class="line">         version=<span class="string">&quot;4.0&quot;</span>&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;Servlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;org.westos.mail.Servlet&lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;Servlet&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/a.<span class="keyword">do</span>&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	<div>
+	  
+		<div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+	  
+	</div>
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>徐振斌
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://xuzb0312.github.io/2022/04/10/%E9%82%AE%E4%BB%B6%E5%8F%91%E9%80%81/" title="邮件发送">http://xuzb0312.github.io/2022/04/10/邮件发送/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JAVA/" rel="tag"># JAVA</a>
+              <a href="/tags/JavaWeb/" rel="tag"># JavaWeb</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/26/IO%E6%A1%86%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" rel="prev" title="I/O流（java基础）">
+      <i class="fa fa-chevron-left"></i> I/O流（java基础）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/04/10/%E6%B3%A8%E8%A7%A3%E4%B8%8E%E5%8F%8D%E5%B0%84/" rel="next" title="注解与反射">
+      注解与反射 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E9%82%AE%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8E%E4%BC%A0%E8%BE%93%E5%8D%8F%E8%AE%AE"><span class="nav-text">一、邮件服务器与传输协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81Java%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6"><span class="nav-text">二、Java发送邮件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81JavaWeb%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6-%E7%BD%91%E7%AB%99%E6%B3%A8%E5%86%8C%E6%88%90%E5%8A%9F%E5%8F%91%E9%80%81%E6%8F%90%E7%A4%BA%E9%82%AE%E4%BB%B6"><span class="nav-text">三、JavaWeb发送邮件(网站注册成功发送提示邮件)</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="徐振斌"
+      src="/images/author.jpg">
+  <p class="site-author-name" itemprop="name">徐振斌</p>
+  <div class="site-description" itemprop="description">见证自己成长的成长簿！</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/xuzb0312" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;xuzb0312" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1730765741@qq.com" title="E-Mail → mailto:1730765741@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">徐振斌</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+   <span title="站点总字数">260k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:56</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  
+  <script color='0,0,0' opacity='0.5' zIndex='-1' count='150' src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+	
+
+</body>
+</html>
+
